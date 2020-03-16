@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 
+#TODO - replace most strings with formatted strings
 
 if __name__ == "__main__":
 
@@ -11,9 +12,9 @@ if __name__ == "__main__":
     driver = webdriver.Chrome();
     driver.get("https://www.youtube.com/feed/history")
     input("Please log in and press any key once complete.\n")
-    # driver.get("https://www.reddit.com")
 
-    lastScroll = None #how far have we scrolled
+    #NOTE - normally use document.body.scrollHeight to get doc height
+    #   but for youtube, the HTML is configured differently and needs this
     lastScroll = driver.execute_script("return document.body.children[2].scrollHeight")
 
     stuckInstances = 0
@@ -30,7 +31,6 @@ if __name__ == "__main__":
             stuckInstances+=1
             print("Stuck counter: " + str(stuckInstances))
             if(stuckInstances > 10):
-                input("About to stop scraping after next enter.")
                 break
         else:
             stuckInstances = 0
